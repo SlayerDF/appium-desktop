@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
-import { Form, Card, Select, Button, Row, Col } from 'antd';
+import { Form, Card, Input } from 'antd';
 import SessionCSS from './Session.css';
-import {
-  ReloadOutlined
-} from '@ant-design/icons';
 
 const FormItem = Form.Item;
 
@@ -22,8 +19,7 @@ export default class AttachToSession extends Component {
   }
 
   render () {
-    let {attachSessId, setAttachSessId, runningAppiumSessions, getRunningSessions, t} = this.props;
-    attachSessId = attachSessId || '';
+    let {setAttachSessId, t} = this.props;
     return (<Form>
       <FormItem>
         <Card>
@@ -31,27 +27,10 @@ export default class AttachToSession extends Component {
         </Card>
       </FormItem>
       <FormItem>
-        <Row>
-          <Col span={23}>
-            <Select showSearch
-              mode='AutoComplete'
-              notFoundContent='None found'
-              placeholder={t('enterYourSessionId')}
-              value={attachSessId}
-              onChange={(value) => setAttachSessId(value)}>
-              {runningAppiumSessions.map((session) => <Select.Option key={session.id} value={session.id}>
-                <div>{this.getSessionInfo(session)}</div>
-              </Select.Option>)}
-            </Select>
-          </Col>
-          <Col span={1}>
-            <div className={SessionCSS.btnReload}>
-              <Button
-                onClick={getRunningSessions}
-                icon={<ReloadOutlined/>} />
-            </div>
-          </Col>
-        </Row>
+        <Input
+          placeholder={t('enterYourSessionId')}
+          onChange={(e) => setAttachSessId(e.target.value)}>
+        </Input>
       </FormItem>
     </Form>);
   }
